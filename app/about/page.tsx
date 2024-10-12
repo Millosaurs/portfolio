@@ -346,8 +346,8 @@ export default function About() {
             </div>
           </div>
         </section>
-        <footer className="bg-black text-white py-8 border-t border-white/20">
-          <div className="flex container mx-auto px-4 text-center justify-between">
+        <footer className="bg-black text-white py-8 border-t border-white/10">
+          <div className="flex flex-col container mx-auto px-4 text-center justify-between gap-2">
             <p>&copy; 2024 Sharan Shrivatsav. All rights reserved.</p>
             <p>k........</p>
           </div>

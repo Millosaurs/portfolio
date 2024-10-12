@@ -375,81 +375,82 @@ export default function Store() {
         </div>
 
         <Dialog open={isCartOpen} onOpenChange={setIsCartOpen}>
-          <DialogContent className="bg-black text-white">
-            <DialogHeader>
-              <DialogTitle>Your Cart</DialogTitle>
-              <DialogDescription>
-                Review your items and proceed to checkout.
-              </DialogDescription>
-            </DialogHeader>
-            {cart.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-xl font-semibold">Nothing to display</p>
-                <p className="text-gray-400 mt-2">Your cart is empty. Add some items to get started!</p>
+  <DialogContent className="bg-black text-white p-4 sm:p-6 md:p-8 rounded-lg"> {/* Added padding for smaller devices */}
+    <DialogHeader>
+      <DialogTitle className="text-lg sm:text-xl">Your Cart</DialogTitle>
+      <DialogDescription className="text-sm sm:text-base">
+        Review your items and proceed to checkout.
+      </DialogDescription>
+    </DialogHeader>
+    {cart.length === 0 ? (
+      <div className="text-center py-8">
+        <p className="text-xl font-semibold">Nothing to display</p>
+        <p className="text-gray-400 mt-2">Your cart is empty. Add some items to get started!</p>
+      </div>
+    ) : (
+      <>
+        <div className="space-y-4">
+          {cart.map((item) => {
+            const storeItem = storeData.items.find(i => i.id === item.id);
+            if (!storeItem) return null;
+            return (
+              <div key={item.id} className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-semibold text-base">{storeItem.name}</h3>
+                  <p className="text-sm text-gray-400">${storeItem.price.toFixed(2)} each</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span>{item.quantity}</span>
+                  <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                  <Button size="sm" variant="destructive" onClick={() => removeFromCart(item.id)}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            ) : (
-              <>
-                <div className="space-y-4">
-                  {cart.map((item) => {
-                    const storeItem = storeData.items.find(i => i.id === item.id);
-                    if (!storeItem) return null;
-                    return (
-                      <div key={item.id} className="flex justify-between items-center">
-                        <div>
-                          <h3 className="font-semibold">{storeItem.name}</h3>
-                          <p className="text-sm text-gray-400">${storeItem.price.toFixed(2)} each</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
-                            <Minus className="h-4 w-4" />
-                          </Button>
-                          <span>{item.quantity}</span>
-                          <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                          <Button size="sm" variant="destructive" onClick={() => removeFromCart(item.id)}>
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="mt-4">
-                  <Label htmlFor="discount-code">Discount Code</Label>
-                  <div className="flex space-x-2">
-                    <Input
-                      id="discount-code"
-                      value={discountCode}
-                      onChange={(e) => setDiscountCode(e.target.value)}
-                      className="bg-gray-900 text-white"
-                    />
-                    <Button onClick={applyDiscount}>Apply</Button>
-                  </div>
-                </div>
-                <div className="mt-4 space-y-2">
-                  <p>Subtotal: ${cartTotal.toFixed(2)}</p>
-                  {appliedDiscount > 0 && (
-                    <p>Discount: -${(cartTotal * appliedDiscount).toFixed(2)}</p>
-                  )}
-                  <p className="text-xl font-bold">Total: ${discountedTotal.toFixed(2)}</p>
-                </div>
-                <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsCartOpen(false)}>
-                    Continue Shopping
-                  </Button>
-                  <Button onClick={handleCheckout}>
-                    Checkout
-                  </Button>
-                </DialogFooter>
-              </>
-            )}
-          </DialogContent>
-        </Dialog>
+            );
+          })}
+        </div>
+        <div className="mt-4">
+          <Label htmlFor="discount-code">Discount Code</Label>
+          <div className="flex space-x-2">
+            <Input
+              id="discount-code"
+              value={discountCode}
+              onChange={(e) => setDiscountCode(e.target.value)}
+              className="bg-gray-900 text-white"
+            />
+            <Button onClick={applyDiscount}>Apply</Button>
+          </div>
+        </div>
+        <div className="mt-4 space-y-2">
+          <p>Subtotal: ${cartTotal.toFixed(2)}</p>
+          {appliedDiscount > 0 && (
+            <p>Discount: -${(cartTotal * appliedDiscount).toFixed(2)}</p>
+          )}
+          <p className="text-xl font-bold">Total: ${discountedTotal.toFixed(2)}</p>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setIsCartOpen(false)}>
+            Continue Shopping
+          </Button>
+          <Button onClick={handleCheckout}>
+            Checkout
+          </Button>
+        </DialogFooter>
+      </>
+    )}
+  </DialogContent>
+</Dialog>
 
-        <footer className="bg-black text-white py-8 border-t border-white/20">
-          <div className="flex container mx-auto px-4 text-center justify-between">
+        <footer className="bg-black text-white py-8 border-t border-white/10">
+          <div className="flex flex-col container mx-auto px-4 text-center justify-between gap-2">
             <p>&copy; 2024 Sharan Shrivatsav. All rights reserved.</p>
+            <p>k........</p>
           </div>
         </footer>
       </div>

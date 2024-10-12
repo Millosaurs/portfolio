@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -312,64 +313,79 @@ export default function Component() {
                 </div>
               </motion.section>
 
-              <motion.section 
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="mb-16"
-                id="recent-work"
-              >
-                <h1 className="text-6xl font-bold mb-12 ">Recent Work</h1>
-                <div className="space-y-24">
-                  {portfolioData.recentWork.map((work) => (
-                   <motion.div 
-                   key={work.id}
-                   initial={{ opacity: 0, y: 20 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   transition={{ duration: 0.5 }}
-                   className="relative overflow-hidden rounded-lg bg-black border border-white/10"
-                   style={{ width: '100%' }}
-                 >
-                   <div className="relative h-[600px]">
-                     <Image 
-                       src={work.image} 
-                       alt={work.title} 
-                       layout="fill"
-                       objectFit="cover"
-                       className="w-full h-full object-cover"
-                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent">
-                       <div className="absolute bottom-0 left-0 right-0 p-8">
-                         <h3 className="text-3xl font-semibold mb-4">{work.title}</h3>
-                         <p className="text-gray-300 mb-4 text-sm">{work.description}</p>
-                         <div className="flex justify-between items-center mb-4">
-                           <div className="w-[48%]">
-                             <h4 className="text-base font-semibold mb-2">My Contribution:</h4>
-                             <p className="text-xs mb-2">{work.contribution}</p>
-                             <div className="mt-2 bg-gray-800 h-2 rounded-full">
-                               <div 
-                                 className="bg-white h-full rounded-full" 
-                                 style={{ width: `${work.contributionPercentage}%` }}
-                               ></div>
-                             </div>
-                             <p className="text-xs mt-1">{work.contributionPercentage}% of project</p>
-                           </div>
-                           <div className="w-px h-16 bg-white/10"></div>
-                           <div className="w-[48%]">
-                             <h4 className="text-base font-semibold mb-2">Time Taken:</h4>
-                             <p className="text-sm">{work.timeTaken}</p>
-                           </div>
-                         </div>
-                         <Button className="bg-white text-black hover:bg-gray-200 text-sm px-4 py-2">
-                           Know More
-                         </Button>
-                       </div>
-                     </div>
-                   </div>
-                 </motion.div>
-                  ))}
+              <motion.section
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.4 }}
+  className="mb-16"
+  id="recent-work"
+>
+  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-10 md:mb-12">
+    Recent Work
+  </h1>
+  <div className="space-y-12 sm:space-y-16 md:space-y-24">
+    {portfolioData.recentWork.map((work) => (
+      <motion.div
+        key={work.id}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative overflow-hidden rounded-lg bg-black border border-white/10"
+        style={{ width: '100%' }}
+      >
+        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] pt-96"> {/* Added pt-16 for padding */}
+          <Image
+            src={work.image}
+            alt={work.title}
+            layout="fill"
+            objectFit="cover"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-2 sm:mb-3 md:mb-4">
+                {work.title}
+              </h3>
+              <p className="text-gray-300 mb-2 sm:mb-3 md:mb-4 text-xs sm:text-sm">
+                {work.description}
+              </p>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6">
+                <div className="w-full sm:w-[48%] mb-4 sm:mb-0">
+                  <h4 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2">
+                    My Contribution:
+                  </h4>
+                  <p className="text-xs sm:text-sm mb-1">{work.contribution}</p>
+                  <div className="mt-2 bg-gray-800 h-2 rounded-full">
+                    <div
+                      className="bg-white h-full rounded-full"
+                      style={{ width: `${work.contributionPercentage}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-xs sm:text-sm mt-1">
+                    {work.contributionPercentage}% of project
+                  </p>
                 </div>
-              </motion.section>
+                <div className="hidden sm:block w-px h-16 bg-white/10"></div>
+                <div className="w-full sm:w-[48%]">
+                  <h4 className="text-sm sm:text-base font-semibold mb-1 sm:mb-2">
+                    Time Taken:
+                  </h4>
+                  <p className="text-xs sm:text-sm">{work.timeTaken}</p>
+                </div>
+              </div>
+              <Button className="bg-white text-black hover:bg-gray-200 text-xs sm:text-sm px-3 py-2">
+                Know More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</motion.section>
+
+
+
 
               <motion.section 
                 initial={{ opacity: 0, y: 50 }}
@@ -425,9 +441,9 @@ export default function Component() {
         </div>
 
         <footer className="bg-black text-white py-8 border-t border-white/10">
-          <div className="flex container mx-auto px-4 text-center justify-between">
+          <div className="flex flex-col container mx-auto px-4 text-center justify-between gap-2">
             <p>&copy; 2024 Sharan Shrivatsav. All rights reserved.</p>
-            <p>Cart Items: {cart.reduce((total, item) => total + item.quantity, 0)}</p>
+            <p>k........</p>
           </div>
         </footer>
       </div>
